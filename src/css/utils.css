@@ -10,3 +10,7 @@
 .transparent {
     color: transparent;
 }
+
+.ml-1 {
+    margin-left: 1rem;
+}

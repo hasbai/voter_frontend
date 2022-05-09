@@ -1,5 +1,6 @@
 @import url(utils.css);
 @import url(transition.css);
+@import url(ui.css);
 
 html {
     overflow: hidden;
@@ -21,16 +22,6 @@ header {
     align-items: center;
 }
 
-main {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 3rem;
-    width: 100%;
-    height: 100%;
-}
 
 /*@media (min-width: 500px) {*/
 /*    main {*/
@@ -49,7 +40,7 @@ footer {
 }
 
 
-.login{
+.login {
     width: 50%;
     min-width: 300px;
 }
