@@ -12,6 +12,7 @@
         v-for="(motion, j) in session.motions"
         :key="j"
         v-bind="motion"
+        @click="setMotion(motion)"
       ></Motion>
     </n-collapse-item>
   </n-collapse>
@@ -48,6 +49,9 @@ export default {
       if (array.length > 0) {
         this.getSession(array[0])
       }
+    },
+    setMotion(motion) {
+      this.$store.commit('setCurrentMotion', motion)
     }
   },
   created() {
@@ -60,5 +64,7 @@ export default {
 .list {
   width: max-content;
   min-width: 10rem;
+  margin: 0 1rem;
+
 }
 </style>

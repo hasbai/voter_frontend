@@ -12,6 +12,18 @@ const store = createStore({
       username: "",
       users: [],
       sessions: [],
+      currentMotion: {
+        id: Number,
+        name: String,
+        description: String,
+        status: Number,
+        createdAt: String,
+        updatedAt: String,
+        userID: Number,
+        for: [],
+        against: [],
+        abstain: [],
+      },
     };
   },
   getters: {},
@@ -32,6 +44,9 @@ const store = createStore({
       } else {
         state.sessions[index] = session;
       }
+    },
+    setCurrentMotion(state, motion) {
+      state.currentMotion = motion;
     },
   },
 });

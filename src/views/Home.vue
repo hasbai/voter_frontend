@@ -2,7 +2,7 @@
   <div>
     <Login></Login>
     <main>
-      <vote-page id="vote-page"></vote-page>
+      <vote-page></vote-page>
       <list></list>
     </main>
   </div>
@@ -52,14 +52,9 @@ export default {
 main {
   display: flex;
   flex-direction: row;
-  width: 92%;
   height: 100%;
   margin: 2rem auto;
+  max-width: 1080px;
 }
-
-#vote-page {
-  flex: 1
-}
-
 
 </style>

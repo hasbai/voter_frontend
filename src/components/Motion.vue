@@ -1,6 +1,7 @@
 <template>
   <n-card
     :bordered="false"
+    :style="{'--image': image}"
     class="motion"
     content-style="padding: 0 0.5rem;"
     hoverable
@@ -10,7 +11,7 @@
       <span class="ml-1">{{ createdAt.substring(11, 16) }}</span>
     </div>
     <div>{{ description }}</div>
-    <div class="footer">
+    <div class="author">
       by {{ username }}
     </div>
 
@@ -38,6 +39,15 @@ export default {
   computed: {
     username() {
       return getUser(this.userID).name
+    },
+    image() {
+      if (this.status === 1) {
+        return 'url(/img/passed.png)'
+      }
+      if (this.status === -1) {
+        return 'url(/img/failed.png)'
+      }
+      return ''
     }
   },
   methods: {}
@@ -48,6 +58,22 @@ export default {
 .motion {
   margin-bottom: 1rem;
   cursor: pointer;
+  position: relative;
+  --image: "";
+  --opacity: 0.25;
+}
+
+.motion::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  background-image: var(--image);
+  background-size: 40%;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: var(--opacity);
 }
 
 .title {
@@ -61,9 +87,8 @@ export default {
   font-size: larger;
 }
 
-.footer {
+.author {
   font-style: italic;
   text-align: right;
-
 }
 </style>
