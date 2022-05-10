@@ -25,7 +25,7 @@
       </div>
     </div>
     <div class="the-rest">
-      <n-button circle type="success">✓</n-button>
+      <n-button circle size="large" type="primary" @click="resolveMotion">✓</n-button>
     </div>
   </div>
   <div v-else class="vote-page">
@@ -85,6 +85,9 @@ export default {
           break
       }
       await this.axios.post(`/motions/${id}/${type}`)
+    },
+    async resolveMotion() {
+      await this.axios.put(`/motions/${this.currentMotion.id}`)
     },
     motionUpdated() {
       this.vote('abstain')
@@ -187,14 +190,13 @@ h2 {
 }
 
 .the-rest {
-  flex: 1;
-  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
   width: 100%;
 }
 
 .the-rest button {
-  position: absolute;
-  right: 0;
-  bottom: 0;
+  margin: 0.5rem;
 }
 </style>
