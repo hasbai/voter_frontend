@@ -2,7 +2,7 @@
   <n-modal
     v-model:show="showLogin"
     :bordered="false"
-    class="login"
+    class="modal"
     preset="card"
     size="huge"
     title="登录"

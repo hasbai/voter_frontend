@@ -6,3 +6,8 @@
 #app .n-divider {
     margin: 0.5rem auto;
 }
+
+.modal {
+    width: 50%;
+    min-width: 300px;
+}

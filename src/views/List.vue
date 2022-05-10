@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="side-bar">
     <n-collapse accordion class="list" @update:expanded-names="sessionOnClick">
       <n-collapse-item
         v-for="(session, i) in sessions"
@@ -17,8 +17,11 @@
         ></Motion>
       </n-collapse-item>
     </n-collapse>
-    <div>
-      <n-button>create session</n-button>
+    <div class="buttons">
+      <n-button @click="create('session')">create session</n-button>
+      <n-button @click="create('motion')">create motion</n-button>
+      <create-session ref="session"></create-session>
+      <create-motion ref="motion"></create-motion>
     </div>
   </div>
 
@@ -45,6 +48,9 @@ export default {
       const r = await this.axios.get('/sessions/' + id)
       this.$store.commit('updateSession', r.data)
     },
+    create(name) {
+      this.$refs[name].show = true
+    },
     sessionOnClick(array) {
       if (array.length > 0) {
         this.getSession(array[0])
@@ -65,6 +71,21 @@ export default {
   width: max-content;
   min-width: 10rem;
   margin: 0 1rem;
+}
 
+.side-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.buttons button {
+  margin: 0.5rem 0;
 }
 </style>

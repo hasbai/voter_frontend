@@ -48,6 +48,20 @@ const store = createStore({
     setCurrentMotion(state, motion) {
       state.currentMotion = motion;
     },
+    updateMotion(state, motion) {
+      for (let i = state.sessions.length - 1; i >= 0; i--) {
+        const motions = state.sessions[i].motions;
+        for (let j = motions.length - 1; j >= 0; j--) {
+          if (motions[j].id === motion.id) {
+            motions[j] = motion;
+            return;
+          }
+        }
+      }
+    },
+    addMotion(state, motion) {
+      state.sessions[state.sessions.length - 1].motions.push(motion);
+    },
   },
 });
 
