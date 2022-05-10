@@ -1,27 +1,29 @@
 <template>
-  <div v-if="currentMotion.id > 0" class="vote-page page">
-    <h2>{{ currentMotion.name }}</h2>
-    <div class="author">{{ getUsername(currentMotion.userID) }}</div>
-    <div class="description">{{ currentMotion.description }}</div>
-    <div class="boxes larger">
-      <div
-        v-for="(type, i) in ['for', 'against']"
-        :key="i"
-        :style="{
+  <div class="vote-page page">
+    <div v-if="currentMotion.id > 0" class="motion">
+      <h2>{{ currentMotion.name }}</h2>
+      <div class="author">{{ getUsername(currentMotion.userID) }}</div>
+      <div class="description">{{ currentMotion.description }}</div>
+      <div class="boxes larger">
+        <div
+          v-for="(type, i) in ['for', 'against']"
+          :key="i"
+          :style="{
           '--color':backgroundColors[i],
           '--image': resolved(i) ? backgroundImages[i] : '',
         }" class="box color"
-        @click="vote(type)"
-      >
-        <strong class="number">{{ currentMotion[type].length }}</strong>
-        <div v-for="(id, j) in currentMotion[type]" :key="j">
-          {{ getUsername(id) }}
+          @click="vote(type)"
+        >
+          <strong class="number">{{ currentMotion[type].length }}</strong>
+          <div v-for="(id, j) in currentMotion[type]" :key="j">
+            {{ getUsername(id) }}
+          </div>
         </div>
       </div>
-    </div>
-    <div class="abstain larger">
-      <div v-for="(id, j) in currentMotion.abstain" :key="j" class="name">
-        {{ getUsername(id) }}
+      <div class="abstain larger">
+        <div v-for="(id, j) in currentMotion.abstain" :key="j" class="name">
+          {{ getUsername(id) }}
+        </div>
       </div>
     </div>
     <div v-if="adminMode" class="admin">
@@ -34,8 +36,8 @@
       </div>
     </div>
   </div>
-  <div v-else class="vote-page">
-  </div>
+
+
 </template>
 
 <script>
@@ -111,10 +113,14 @@ export default {
 <style scoped>
 .vote-page {
   flex: 1;
+  margin: 0 1rem;
+}
+
+.motion {
   display: flex;
   flex-direction: column;
+  width: 100%;
   align-items: center;
-  margin: 0 1rem;
 }
 
 h2 {
@@ -207,7 +213,7 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 0.5rem 0;
+  margin: 1rem 0;
   position: relative;
 }
 
