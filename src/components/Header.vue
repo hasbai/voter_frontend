@@ -1,5 +1,9 @@
 <template>
   <header>
+    <div class="info">
+      <n-switch @update:value="changeAdminMode"/>
+      <div>Admin Mode: {{ adminMode ? 'on' : 'off' }}</div>
+    </div>
     <div class="github">
       <n-button
         :bordered="false"
@@ -17,6 +21,7 @@
 </template>
 
 <script>
+import {mapState} from "vuex"
 import {GithubFilled} from '@vicons/antd'
 
 export default {
@@ -24,7 +29,24 @@ export default {
   components: {
     GithubFilled,
   },
-}
-</script>
+  computed: {
+    ...mapState(['adminMode']),
+  },
+  methods: {
+    changeAdminMode(mode) {
+      this.$store.commit('setAdminMode', mode)
+    }
+  }
+}</script>
 
-<style scoped></style>
+<style scoped>
+.info {
+  display: flex;
+  margin: 0 2rem;
+}
+
+.info div {
+  margin: 0 0.5rem;
+}
+
+</style>

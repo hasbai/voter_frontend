@@ -17,12 +17,6 @@
         ></Motion>
       </n-collapse-item>
     </n-collapse>
-    <div class="buttons">
-      <n-button @click="create('session')">create session</n-button>
-      <n-button @click="create('motion')">create motion</n-button>
-      <create-session ref="session"></create-session>
-      <create-motion ref="motion"></create-motion>
-    </div>
   </div>
 
 </template>
@@ -47,9 +41,6 @@ export default {
     async getSession(id) {
       const r = await this.axios.get('/sessions/' + id)
       this.$store.commit('updateSession', r.data)
-    },
-    create(name) {
-      this.$refs[name].show = true
     },
     sessionOnClick(array) {
       if (array.length > 0) {
@@ -77,15 +68,5 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  margin-top: 1rem;
-}
-
-.buttons button {
-  margin: 0.5rem 0;
 }
 </style>

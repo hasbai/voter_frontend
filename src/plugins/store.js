@@ -9,6 +9,7 @@ const store = createStore({
   ],
   state() {
     return {
+      adminMode: false,
       user: {},
       users: [],
       sessions: [],
@@ -28,6 +29,9 @@ const store = createStore({
   },
   getters: {},
   mutations: {
+    setAdminMode(state, mode) {
+      state.adminMode = mode;
+    },
     setUser(state, user) {
       state.user = user;
     },

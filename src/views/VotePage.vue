@@ -24,8 +24,14 @@
         {{ getUsername(id) }}
       </div>
     </div>
-    <div class="the-rest">
-      <n-button circle size="large" type="primary" @click="resolveMotion">✓</n-button>
+    <div v-if="adminMode" class="admin">
+      <n-button circle class="resolve" size="large" type="primary" @click="resolveMotion">✓</n-button>
+      <div class="buttons">
+        <n-button @click="create('session')">create session</n-button>
+        <n-button @click="create('motion')">create motion</n-button>
+        <create-session ref="session"></create-session>
+        <create-motion ref="motion"></create-motion>
+      </div>
     </div>
   </div>
   <div v-else class="vote-page">
@@ -46,7 +52,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentMotion', 'user']),
+    ...mapState(['currentMotion', 'user', 'adminMode']),
     voted() {
       return {
         for: this.currentMotion.for.indexOf(this.user.id) >= 0,
@@ -91,7 +97,10 @@ export default {
     },
     motionUpdated() {
       this.vote('abstain')
-    }
+    },
+    create(name) {
+      this.$refs[name].show = true
+    },
   },
   created() {
     bus.on('motionUpdated', this.motionUpdated)
@@ -118,6 +127,9 @@ h2 {
 
 .description {
   margin: 0.5rem 0;
+  width: 90%;
+  max-width: 500px;
+  text-indent: 2em;
 }
 
 .boxes {
@@ -189,14 +201,22 @@ h2 {
   margin: 0 0.5em;
 }
 
-.the-rest {
+.admin {
   display: flex;
   flex-direction: row;
   justify-content: center;
+  align-items: center;
   width: 100%;
+  padding: 0.5rem 0;
+  position: relative;
 }
 
-.the-rest button {
-  margin: 0.5rem;
+.admin .buttons {
+  position: absolute;
+  right: 0
+}
+
+.buttons button {
+  margin: 0 0.5rem;
 }
 </style>
