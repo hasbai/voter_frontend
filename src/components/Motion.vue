@@ -7,7 +7,7 @@
     hoverable
   >
     <div class="title">
-      <span class="name">{{ name }}</span>
+      <h3 class="name">{{ name }}</h3>
       <span class="ml-1">{{ createdAt.substring(11, 16) }}</span>
     </div>
     <div>{{ description }}</div>

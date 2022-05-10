@@ -1,23 +1,21 @@
 <template>
-  <div class="side-bar">
-    <n-collapse accordion class="list" @update:expanded-names="sessionOnClick">
-      <n-collapse-item
-        v-for="(session, i) in sessions"
-        :key="i" :name="session.id"
-        :title="session.name"
-      >
-        <template #header-extra>
-          <span class="ml-1">{{ sessionTime(session) }}</span>
-        </template>
-        <Motion
-          v-for="(motion, j) in session.motions"
-          :key="j"
-          v-bind="motion"
-          @click="setMotion(motion)"
-        ></Motion>
-      </n-collapse-item>
-    </n-collapse>
-  </div>
+  <n-collapse accordion class="list page" @update:expanded-names="sessionOnClick">
+    <n-collapse-item
+      v-for="(session, i) in sessions"
+      :key="i" :name="session.id"
+      :title="session.name"
+    >
+      <template #header-extra>
+        <span class="ml-1">{{ sessionTime(session) }}</span>
+      </template>
+      <Motion
+        v-for="(motion, j) in session.motions"
+        :key="j"
+        v-bind="motion"
+        @click="setMotion(motion)"
+      ></Motion>
+    </n-collapse-item>
+  </n-collapse>
 
 </template>
 
@@ -59,8 +57,8 @@ export default {
 
 <style scoped>
 .list {
-  width: max-content;
   min-width: 10rem;
+  width: 25%;
   margin: 0 1rem;
 }
 

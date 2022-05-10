@@ -1,5 +1,5 @@
 <template>
-  <div v-if="currentMotion.id > 0" class="vote-page">
+  <div v-if="currentMotion.id > 0" class="vote-page page">
     <h2>{{ currentMotion.name }}</h2>
     <div class="author">{{ getUsername(currentMotion.userID) }}</div>
     <div class="description">{{ currentMotion.description }}</div>

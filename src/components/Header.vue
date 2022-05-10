@@ -40,9 +40,18 @@ export default {
 }</script>
 
 <style scoped>
+header {
+  height: 4rem;
+  padding: 0 2rem;
+  /*position: sticky;*/
+  /*top: 0;*/
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .info {
   display: flex;
-  margin: 0 2rem;
 }
 
 .info div {
