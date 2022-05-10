@@ -1,22 +1,25 @@
 <template>
   <n-modal
-    v-model:show="showLogin"
+    v-model:show="show"
     :bordered="false"
     class="modal"
     preset="card"
     size="huge"
     title="登录"
   >
-    <n-input v-model:value="value" placeholder="用户名（建议实名）" type="text"/>
+    <n-input
+      v-model:value="name"
+      placeholder="用户名（建议实名）"
+      type="text"
+      @keydown.enter="login"
+    />
     <div class="buttons">
       <n-button
-        style="margin-right: 1rem"
         type="primary"
         @click="login"
       >
         登录
       </n-button>
-      <n-button type="error" @click="close">退出</n-button>
     </div>
   </n-modal>
 </template>
@@ -28,26 +31,23 @@ export default {
   name: "Login",
   data() {
     return {
-      value: ''
+      name: '',
+      show: false
     }
   },
   computed: {
-    ...mapState(['username']),
-    showLogin() {
-      return !this.username
-    }
+    ...mapState(['user']),
   },
   methods: {
     async login() {
-      await this.axios.put('/users/' + this.value)
-      this.$store.commit('setUsername', this.value)
-    },
-    close() {
-      window.close()
+      const r = await this.axios.put('/users/' + this.name)
+      this.$store.commit('setUser', r.data)
+      this.axios.setToken(this.user.name)
+      this.show = false
     }
   },
   created() {
-
+    this.show = !Boolean(this.user.name)
   }
 }
 </script>

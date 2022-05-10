@@ -4,12 +4,12 @@ import createPersistedState from "vuex-persistedstate";
 const store = createStore({
   plugins: [
     createPersistedState({
-      paths: ["username"],
+      paths: ["user"],
     }),
   ],
   state() {
     return {
-      username: "",
+      user: {},
       users: [],
       sessions: [],
       currentMotion: {
@@ -28,8 +28,8 @@ const store = createStore({
   },
   getters: {},
   mutations: {
-    setUsername(state, username) {
-      state.username = username;
+    setUser(state, user) {
+      state.user = user;
     },
     setUsers(state, users) {
       state.users = users;
@@ -49,6 +49,13 @@ const store = createStore({
       state.currentMotion = motion;
     },
     updateMotion(state, motion) {
+      const latestMotions = state.sessions[state.sessions.length - 1].motions;
+      if (
+        latestMotions.length === 0 ||
+        latestMotions[latestMotions.length - 1].id === motion.id
+      ) {
+        latestMotions.push(motion);
+      }
       for (let i = state.sessions.length - 1; i >= 0; i--) {
         const motions = state.sessions[i].motions;
         for (let j = motions.length - 1; j >= 0; j--) {
@@ -58,9 +65,6 @@ const store = createStore({
           }
         }
       }
-    },
-    addMotion(state, motion) {
-      state.sessions[state.sessions.length - 1].motions.push(motion);
     },
   },
 });

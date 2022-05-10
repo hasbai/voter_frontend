@@ -1,24 +1,22 @@
-import axios from 'axios'
+import axios from "axios";
 import store from "@/plugins/store";
 
-export const baseURL = '/api'
+export const baseURL = "/api";
+
+const getToken = () => {
+  return store.state.user ? store.state.user.username : "";
+};
 
 const instance = axios.create({
   baseURL,
   timeout: 5000,
-})
-
-instance.interceptors.request.use(
-  (config) => {
-    const username = store.state.username;
-    if (username) {
-      config.headers.Authorization = username;
-    }
-    return config;
+  headers: {
+    Authorization: getToken(),
   },
-  (err) => {
-    return Promise.reject(err);
-  }
-)
+});
 
-export default instance
+instance.setToken = (token) => {
+  instance.defaults.headers["Authorization"] = token;
+};
+
+export default instance;
