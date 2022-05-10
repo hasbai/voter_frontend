@@ -6,11 +6,12 @@
     <div class="boxes larger">
       <div
         v-for="(type, i) in ['for', 'against']"
-        :key="i" :style="{
+        :key="i"
+        :style="{
           '--color':backgroundColors[i],
           '--image': resolved(i) ? backgroundImages[i] : '',
-        }"
-        class="box color"
+        }" class="box color"
+        @click="vote(type)"
       >
         <strong class="number">{{ currentMotion[type].length }}</strong>
         <div v-for="(id, j) in currentMotion[type]" :key="j">
@@ -23,6 +24,9 @@
         {{ getUsername(id) }}
       </div>
     </div>
+    <div class="the-rest">
+      <n-button circle type="success">✓</n-button>
+    </div>
   </div>
   <div v-else class="vote-page">
   </div>
@@ -31,6 +35,7 @@
 <script>
 import {mapState} from "vuex"
 import {getUser} from "@/utils";
+import bus from 'vue3-eventbus'
 
 export default {
   name: "VotePage",
@@ -41,7 +46,14 @@ export default {
     }
   },
   computed: {
-    ...mapState(['currentMotion']),
+    ...mapState(['currentMotion', 'user']),
+    voted() {
+      return {
+        for: this.currentMotion.for.indexOf(this.user.id) >= 0,
+        against: this.currentMotion.against.indexOf(this.user.id) >= 0,
+        abstain: this.currentMotion.abstain.indexOf(this.user.id) >= 0
+      }
+    }
   },
   methods: {
     getUsername(id) {
@@ -53,7 +65,33 @@ export default {
       } else {
         return this.currentMotion.status === -1
       }
+    },
+    async vote(type, id = this.currentMotion.id) {
+      switch (type) {
+        case 'for':
+          if (this.voted.for || this.voted.against) {
+            return
+          }
+          break
+        case 'against':
+          if (this.voted.for || this.voted.against) {
+            return
+          }
+          break
+        case 'abstain':
+          if (this.voted.for || this.voted.against || this.voted.abstain) {
+            return
+          }
+          break
+      }
+      await this.axios.post(`/motions/${id}/${type}`)
+    },
+    motionUpdated() {
+      this.vote('abstain')
     }
+  },
+  created() {
+    bus.on('motionUpdated', this.motionUpdated)
   }
 }
 </script>
@@ -146,5 +184,17 @@ h2 {
 
 .abstain .name {
   margin: 0 0.5em;
+}
+
+.the-rest {
+  flex: 1;
+  position: relative;
+  width: 100%;
+}
+
+.the-rest button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
 }
 </style>

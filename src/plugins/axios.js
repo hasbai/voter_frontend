@@ -4,7 +4,7 @@ import store from "@/plugins/store";
 export const baseURL = "/api";
 
 const getToken = () => {
-  return store.state.user ? store.state.user.username : "";
+  return store.state.user ? store.state.user.name : "";
 };
 
 const instance = axios.create({

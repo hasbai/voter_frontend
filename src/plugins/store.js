@@ -52,9 +52,10 @@ const store = createStore({
       const latestMotions = state.sessions[state.sessions.length - 1].motions;
       if (
         latestMotions.length === 0 ||
-        latestMotions[latestMotions.length - 1].id === motion.id
+        latestMotions[latestMotions.length - 1].id < motion.id
       ) {
         latestMotions.push(motion);
+        return;
       }
       for (let i = state.sessions.length - 1; i >= 0; i--) {
         const motions = state.sessions[i].motions;

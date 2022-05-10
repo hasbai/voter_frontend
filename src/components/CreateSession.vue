@@ -7,7 +7,10 @@
     size="huge"
     title="新会议"
   >
-    <n-input v-model:value="value" clearable placeholder="名称" type="text"/>
+    <n-input
+      v-model:value="value" clearable placeholder="名称" type="text"
+      @keydown.enter="create"
+    />
     <div class="buttons">
       <n-button
         type="primary"

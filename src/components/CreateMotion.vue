@@ -7,8 +7,17 @@
     size="huge"
     title="新动议"
   >
-    <n-input v-model:value="name" class="mb-1" clearable placeholder="名称" type="text"/>
-    <n-input v-model:value="description" clearable placeholder="内容" type="textarea"/>
+    <n-input
+      v-model:value="name" class="mb-1"
+      clearable placeholder="名称" type="text"
+    />
+    <n-input
+      v-model:value="description"
+      clearable
+      placeholder="内容"
+      type="textarea"
+      @keydown.enter="create"
+    />
     <div class="buttons">
       <n-button
         type="primary"
@@ -41,8 +50,6 @@ export default {
         name: this.name,
         description: this.description
       })
-      this.$store.commit('addMotion', r.data)
-      this.$store.commit('setCurrentMotion', r.data)
       this.name = ''
       this.description = ''
       this.show = false
