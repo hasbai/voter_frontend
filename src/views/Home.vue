@@ -3,7 +3,7 @@
     <Login></Login>
     <main>
       <vote-page></vote-page>
-      <list></list>
+      <List></List>
     </main>
   </div>
 
@@ -36,7 +36,6 @@ export default {
   methods: {
     async getUsers() {
       const r = await this.axios.get('/users')
-      console.log(r.data)
       this.$store.commit('setUsers', r.data)
     }
   },

@@ -1,35 +1,35 @@
 <template>
-  <n-collapse accordion class="list" @update:expanded-names="sessionOnClick">
-    <n-collapse-item
-      v-for="(session, i) in sessions"
-      :key="i" :name="session.id"
-      :title="session.name"
-    >
-      <template #header-extra>
-        <span class="ml-1">{{ sessionTime(session) }}</span>
-      </template>
-      <Motion
-        v-for="(motion, j) in session.motions"
-        :key="j"
-        v-bind="motion"
-        @click="setMotion(motion)"
-      ></Motion>
-    </n-collapse-item>
-  </n-collapse>
+  <div>
+    <n-collapse accordion class="list" @update:expanded-names="sessionOnClick">
+      <n-collapse-item
+        v-for="(session, i) in sessions"
+        :key="i" :name="session.id"
+        :title="session.name"
+      >
+        <template #header-extra>
+          <span class="ml-1">{{ sessionTime(session) }}</span>
+        </template>
+        <Motion
+          v-for="(motion, j) in session.motions"
+          :key="j"
+          v-bind="motion"
+          @click="setMotion(motion)"
+        ></Motion>
+      </n-collapse-item>
+    </n-collapse>
+    <div>
+      <n-button>create session</n-button>
+    </div>
+  </div>
+
 </template>
 
 <script>
 import {mapState} from "vuex"
-import {NCollapse, NCollapseItem, NList, NListItem} from 'naive-ui'
 import {displayTime} from "@/utils"
-import Motion from "@/components/Motion.vue";
 
 export default {
   name: "List",
-  components: {
-    Motion,
-    NCollapseItem, NCollapse, NList, NListItem
-  },
   computed: {
     ...mapState(['sessions']),
   },

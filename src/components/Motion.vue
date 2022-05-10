@@ -19,14 +19,10 @@
 </template>
 
 <script>
-import {NCard} from 'naive-ui'
 import {getUser} from "@/utils"
 
 export default {
   name: "Motion",
-  components: {
-    NCard
-  },
   props: {
     id: Number,
     name: String,

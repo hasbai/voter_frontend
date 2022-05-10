@@ -31,11 +31,9 @@
 <script>
 import {mapState} from "vuex"
 import {getUser} from "@/utils";
-import {NDivider} from "naive-ui"
 
 export default {
   name: "VotePage",
-  components: {NDivider},
   data() {
     return {
       backgroundColors: ['#388E3C', '#D32F2F'],

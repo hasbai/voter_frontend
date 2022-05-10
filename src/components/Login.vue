@@ -1,17 +1,17 @@
 <template>
   <n-modal
     v-model:show="showLogin"
+    :bordered="false"
     class="login"
     preset="card"
-    title="登录"
     size="huge"
-    :bordered="false"
+    title="登录"
   >
-    <n-input v-model:value="value" type="text" placeholder="用户名（建议实名）" />
+    <n-input v-model:value="value" placeholder="用户名（建议实名）" type="text"/>
     <div class="buttons">
       <n-button
-        type="primary"
         style="margin-right: 1rem"
+        type="primary"
         @click="login"
       >
         登录
@@ -23,11 +23,9 @@
 
 <script>
 import {mapState} from 'vuex'
-import {NModal, NInput, NButton} from 'naive-ui'
 
 export default {
   name: "Login",
-  components: {NModal, NInput, NButton},
   data() {
     return {
       value: ''
@@ -35,16 +33,16 @@ export default {
   },
   computed: {
     ...mapState(['username']),
-    showLogin(){
+    showLogin() {
       return !this.username
     }
   },
   methods: {
-    async login(){
+    async login() {
       await this.axios.put('/users/' + this.value)
       this.$store.commit('setUsername', this.value)
     },
-    close(){
+    close() {
       window.close()
     }
   },
@@ -55,7 +53,7 @@ export default {
 </script>
 
 <style scoped>
-.buttons{
+.buttons {
   margin-top: 1rem;
   display: flex;
   justify-content: flex-end;
