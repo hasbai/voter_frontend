@@ -57,7 +57,6 @@ export default {
         if (data.type === 'motion') {
           const motion = data.data
           this.$store.commit('updateMotion', motion)
-          this.$store.commit('setCurrentMotion', motion)
           bus.emit('motionUpdated')
         }
       }

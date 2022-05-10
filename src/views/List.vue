@@ -46,7 +46,7 @@ export default {
       }
     },
     setMotion(motion) {
-      this.$store.commit('setCurrentMotion', motion)
+      this.$store.commit('updateMotion', motion)
     }
   },
   created() {
