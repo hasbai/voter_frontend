@@ -10,6 +10,7 @@
   "dependencies": {
     "@vicons/utils": "^0.1.4",
     "axios": "^0.27.2",
+    "crypto-js": "^4.1.1",
     "naive-ui": "^2.25.2",
     "unplugin-auto-import": "^0.7.1",
     "unplugin-vue-components": "^0.19.5",

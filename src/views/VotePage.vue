@@ -2,7 +2,7 @@
   <div class="vote-page page">
     <div v-if="currentMotion.id > 0" class="motion">
       <h2>{{ currentMotion.name }}</h2>
-      <div class="author">{{ getUsername(currentMotion.userID) }}</div>
+      <div class="author">{{ getUser(currentMotion.userID).name }}</div>
       <div class="description">{{ currentMotion.description }}</div>
       <div class="boxes larger">
         <div
@@ -16,13 +16,13 @@
         >
           <strong class="number">{{ currentMotion[type].length }}</strong>
           <div v-for="(id, j) in currentMotion[type]" :key="j">
-            {{ getUsername(id) }}
+            <User v-bind="getUser(id)"></User>
           </div>
         </div>
       </div>
       <div class="abstain larger">
         <div v-for="(id, j) in currentMotion.abstain" :key="j" class="name">
-          {{ getUsername(id) }}
+          <User v-bind="getUser(id)"></User>
         </div>
       </div>
     </div>
@@ -64,8 +64,8 @@ export default {
     }
   },
   methods: {
-    getUsername(id) {
-      return getUser(id).name
+    getUser(id) {
+      return getUser(id)
     },
     resolved(i) {  // 当前区域为确认状态
       if (i === 0) {
@@ -158,7 +158,6 @@ h2 {
   --color: transparent;
   --opacity: 0.25;
   --image: "";
-
 }
 
 .color:hover {
@@ -171,7 +170,7 @@ h2 {
   position: absolute;
   width: 100%;
   height: 100%;
-
+  z-index: -1;
   background-color: var(--color);
   opacity: var(--opacity);
 }

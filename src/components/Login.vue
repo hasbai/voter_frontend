@@ -11,6 +11,11 @@
       v-model:value="name"
       placeholder="用户名（建议实名）"
       type="text"
+    />
+    <n-input
+      v-model:value="email"
+      placeholder="邮箱（可选）"
+      type="text"
       @keydown.enter="login"
     />
     <div class="buttons">
@@ -32,6 +37,7 @@ export default {
   data() {
     return {
       name: '',
+      email: '',
       show: false
     }
   },
@@ -40,7 +46,7 @@ export default {
   },
   methods: {
     async login() {
-      const r = await this.axios.put('/users/' + this.name)
+      const r = await this.axios.post('/users', {name: this.name, email: this.email})
       this.$store.commit('setUser', r.data)
       this.axios.setToken(this.user.name)
       this.show = false
